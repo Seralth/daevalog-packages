@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daevalog packages</title>
+<meta name="description" content="Signed package repositories for Daevalog DPS Meter: pacman, apt and rpm.">
+<style>
+  :root {
+    --bg: #f7f7f5;
+    --fg: #1d1d1f;
+    --muted: #5c5c63;
+    --line: #dcdcd6;
+    --code-bg: #ecece7;
+    --link: #5b3fc4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1117;
+      --fg: #e7e7ea;
+      --muted: #a0a0aa;
+      --line: #2a2d38;
+      --code-bg: #1a1d27;
+      --link: #b7a4ff;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 40px 16px 64px; }
+  h1 { font-size: 1.9rem; line-height: 1.2; margin: 0 0 8px; }
+  h2 { font-size: 1.2rem; margin: 40px 0 8px; padding-top: 16px; border-top: 1px solid var(--line); }
+  p, li { color: var(--fg); }
+  .lead { color: var(--muted); margin-top: 0; }
+  a { color: var(--link); }
+  code, pre { font-family: ui-monospace, "Cascadia Mono", "DejaVu Sans Mono", monospace; font-size: 0.9rem; }
+  code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px; }
+  pre {
+    background: var(--code-bg);
+    padding: 12px 14px;
+    border-radius: 8px;
+    overflow-x: auto;
+    line-height: 1.5;
+  }
+  pre code { background: none; padding: 0; }
+  .key { border: 1px solid var(--line); border-radius: 8px; padding: 12px 16px; }
+  .key p { margin: 4px 0; }
+  .fpr { word-spacing: 0.2em; }
+  nav ul { padding-left: 20px; margin: 8px 0 0; }
+  footer { margin-top: 48px; color: var(--muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<main>
+<h1>Daevalog packages</h1>
+<p class="lead">Package repositories for <a href="https://github.com/Seralth/Daevalog">Daevalog DPS Meter</a>, a damage meter for AION&nbsp;2 on Linux.</p>
+
+<p>Once the repository is added, the meter updates with the rest of the system. The repositories keep the newest three builds.</p>
+
+<div class="key">
+<p>Every package and repository index here is signed with this key:</p>
+<p><code>Seralth &lt;packages@seralth.com&gt;</code></p>
+<p>Fingerprint: <code class="fpr">33F1 E9F7 59E2 887D 2637 2C35 5024 29F6 C085 461C</code></p>
+<p>Public key: <a href="daevalog.asc">daevalog.asc</a></p>
+</div>
+
+<nav>
+<ul>
+<li><a href="#arch">Arch Linux and Arch-based</a></li>
+<li><a href="#deb">Debian 13, LMDE 7, Linux Mint 22, Pop!_OS 24.04</a></li>
+<li><a href="#fedora">Fedora</a></li>
+<li><a href="#bazzite">Bazzite and other image-based Fedoras</a></li>
+<li><a href="#opensuse">openSUSE Tumbleweed</a></li>
+</ul>
+</nav>
+
+<h2 id="arch">Arch Linux and Arch-based (CachyOS, EndeavourOS, Manjaro)</h2>
+<p>Add the key and trust it:</p>
+<pre><code>curl -fsSLO https://packages.seralth.com/daevalog.asc
+sudo pacman-key --add daevalog.asc
+sudo pacman-key --lsign-key 33F1E9F759E2887D26372C35502429F6C085461C</code></pre>
+<p>Add these lines to the end of <code>/etc/pacman.conf</code>:</p>
+<pre><code>[daevalog]
+Server = https://packages.seralth.com/arch/$arch</code></pre>
+<p>Install:</p>
+<pre><code>sudo pacman -Syu daevalog-dps-meter</code></pre>
+
+<h2 id="deb">Debian 13, LMDE 7, Linux Mint 22, Pop!_OS 24.04 (.deb)</h2>
+<pre><code>sudo curl -fsSLo /etc/apt/keyrings/daevalog.asc https://packages.seralth.com/daevalog.asc
+sudo curl -fsSLo /etc/apt/sources.list.d/daevalog.sources https://packages.seralth.com/daevalog.sources
+sudo apt update
+sudo apt install daevalog-dps-meter</code></pre>
+<p>Install <code>curl</code> first if it is missing (<code>sudo apt install curl</code>).</p>
+
+<h2 id="fedora">Fedora</h2>
+<pre><code>sudo dnf config-manager addrepo --from-repofile=https://packages.seralth.com/daevalog.repo
+sudo dnf install daevalog-dps-meter</code></pre>
+<p>dnf asks once to import the key. Check that the fingerprint matches the one above.</p>
+
+<h2 id="bazzite">Bazzite and other image-based Fedoras</h2>
+<pre><code>sudo curl -fsSLo /etc/yum.repos.d/daevalog.repo https://packages.seralth.com/daevalog.repo
+rpm-ostree install daevalog-dps-meter
+systemctl reboot</code></pre>
+
+<h2 id="opensuse">openSUSE Tumbleweed</h2>
+<pre><code>sudo rpm --import https://packages.seralth.com/daevalog.asc
+sudo zypper addrepo https://packages.seralth.com/daevalog.repo
+sudo zypper install daevalog-dps-meter</code></pre>
+
+<h2 id="other">Other systems</h2>
+<p>Steam Deck: through distrobox, as the <a href="https://github.com/Seralth/Daevalog/blob/daevalog/docs/linux.md#steam-deck-bazzite-and-other-read-only-systems">Linux guide</a> describes. Other distributions can build from source. Flatpak and AppImage are not supported: neither can give the capture helper the permission it needs.</p>
+
+<footer>
+<p>Files: <code>arch/x86_64/</code> pacman repository <code>daevalog</code>; <code>deb/</code> apt repository (used by <code>daevalog.sources</code>); <code>rpm/x86_64/</code> rpm repository for dnf, rpm-ostree and zypper (used by <code>daevalog.repo</code>).</p>
+</footer>
+</main>
+</body>
+</html>

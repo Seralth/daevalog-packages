@@ -1,0 +1,54 @@
+Package: daevalog-dps-meter
+Architecture: amd64
+Version: 1.0.0+r529
+Priority: optional
+Maintainer: Seralth <packages@seralth.com>
+Installed-Size: 52116
+Depends: libpcap0.8t64 | libpcap0.8, libcap2-bin, libgtk-layer-shell0, libayatana-appindicator3-1, libwebkit2gtk-4.1-0, libgtk-3-0
+Conflicts: a2-tools-dps-meter
+Replaces: a2-tools-dps-meter
+Filename: ./daevalog-dps-meter_1.0.0+r529_amd64.deb
+Size: 15861038
+MD5sum: 489ec5314fa08dc3b75d38c781483cca
+SHA1: ecaa1b26aac4d65d74a347264256584d8e4d630a
+SHA256: b4b4f4183402f01152fcc1815f5ea0fe23410b528a7cc83a533e93413d8e6f3c
+SHA512: dd51188d32ef93f8ab287ee5ba8d98e8b3ee509adc9e8aa70672f464ddc8074ee607733a5f6592572cc1d6706f503d3b45ecc88729b941c682aee8188536148e
+Description: Daevalog DPS Meter - AION 2 real-time DPS overlay
+ (none)
+
+Package: daevalog-dps-meter
+Architecture: amd64
+Version: 1.1.0+r593
+Priority: optional
+Maintainer: Seralth <packages@seralth.com>
+Installed-Size: 54069
+Depends: libpcap0.8t64 | libpcap0.8, libcap2-bin, libgtk-layer-shell0, libayatana-appindicator3-1, libwebkit2gtk-4.1-0, libgtk-3-0
+Conflicts: a2-tools-dps-meter
+Replaces: a2-tools-dps-meter
+Filename: ./daevalog-dps-meter_1.1.0+r593_amd64.deb
+Size: 16360124
+MD5sum: 4d23eb3e7bc7299ff68bc57d4db7f937
+SHA1: cac3dcf2ff8d334a6e1f88243b9e7597002db9bf
+SHA256: c5e061aff426e2906328d23eff63d694fb6d525869e2e6f852f3369c15b1ab84
+SHA512: 41bc75199a659cbb79be962b924fefd6fefacd9d1139746d6dbc2e98acafe2106e4291b9e37759cbda611701fb0a51176338136e13cb46d5a396a0acd1496048
+Description: Daevalog DPS Meter - AION 2 real-time DPS overlay
+ (none)
+
+Package: daevalog-dps-meter
+Architecture: amd64
+Version: 1.1.0+r598
+Priority: optional
+Maintainer: Seralth <packages@seralth.com>
+Installed-Size: 54153
+Depends: libpcap0.8t64 | libpcap0.8, libcap2-bin, libgtk-layer-shell0, libayatana-appindicator3-1, libwebkit2gtk-4.1-0, libgtk-3-0
+Conflicts: a2-tools-dps-meter
+Replaces: a2-tools-dps-meter
+Filename: ./daevalog-dps-meter_1.1.0+r598_amd64.deb
+Size: 16408016
+MD5sum: 796632d94c389d69ddc45b3343bbf085
+SHA1: 4b44403dfb2c8dd5a927e5e1396036c6f4290c16
+SHA256: 947a94b1392be5d30838a10d730f478d17093aea46ec1804905af7dfeaeae462
+SHA512: c00cfcdd4fdba79525fcbe1eb1d70d6e14a607fe528bea16b65d32e7ff3e809b051d2e275d4b50138a16a97563cb0f1911cd3539a06d7cc155120637a7b10c1f
+Description: Daevalog DPS Meter - AION 2 real-time DPS overlay
+ (none)
+

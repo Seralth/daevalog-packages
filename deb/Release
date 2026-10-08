@@ -1,0 +1,17 @@
+Architectures: amd64
+Date: Thu, 08 Oct 2026 03:45:29 +0000
+Description: Daevalog DPS Meter
+Label: Daevalog
+Origin: Daevalog
+MD5Sum:
+ 422b2c1a51b77f44ec843b4f8a96cf7d             2337 Packages
+ d877492f8e260c7bd47e9350921372d8              925 Packages.gz
+SHA1:
+ f9f739f9b3cec5976ccf2110c5928ca132faab9e             2337 Packages
+ 212a259c462fd84217855eb18e3b47bab3e09530              925 Packages.gz
+SHA256:
+ ec25329a86c1acba22f6014593eb2907013c4dffa56817a2c397a13f1e922590             2337 Packages
+ d12db47ed4f1f8220e21b35d9ff1558c3e4bdb35c0195496d04e8eda77abad5d              925 Packages.gz
+SHA512:
+ 1d4895f681aa4044d49f7e6a0e0699dfcfe6b6cf2a1513fcaae25b7c65943fa0ff03ab981d3b403fb30967173096f9c6c2c220b305e5730e86b4016e16c54898             2337 Packages
+ 70f367ec6b6d530278ec5d9dbe6df1c68991cab088e79be415c1c76e458b38c621bf72e57410b5de2b15ffc0bf249108ad50a9c5dbacbd63b975047a8a6cd946              925 Packages.gz
