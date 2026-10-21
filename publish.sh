@@ -37,7 +37,7 @@
 #                          dependencies the system has
 #   windows/               the newest Windows installer only, its .asc signature
 #                          and SHA256SUMS; older ones stay on GitHub releases.
-#                          index.html links it through @WIN_FILE@, @WIN_VERSION@
+#                          index.html links it through @WIN_FILE@, @WIN_LABEL@
 #                          and @WIN_SIZE@, filled in here.
 #
 # Each package folder keeps the newest $KEEP builds of each package. main is replaced
@@ -223,6 +223,8 @@ win_file=$(basename "$win")
 win_version=${BASH_REMATCH[1]}
 [[ ${BASH_REMATCH[2]} == "$rev" ]] || die "windows is r${BASH_REMATCH[2]}, the other systems r$rev"
 [[ -n $rebuild ]] || summary+=", Windows $win_version r$rev"
+# The name on the Download button, as the releases are named: 2.0.0 for r1, then 2.0 r<n>.
+((rev == 1)) && win_label=$win_version || win_label="${win_version%.*} r$rev"
 
 # The 1.x legacy packages, when given: one of each format.
 declare -A leg
@@ -440,7 +442,7 @@ win_size=$(stat -c %s "$win" | awk '{ printf "%.0f MB", $1 / 1e6 }')
 
 for f in "${SITE_FILES[@]}"; do cp "$REPO_DIR/$f" "$site/"; done
 # The page links the installer of this publish.
-sed -i -e "s/@WIN_FILE@/$win_file/g" -e "s/@WIN_VERSION@/$win_version/g" -e "s/@WIN_SIZE@/$win_size/g" "$site/index.html"
+sed -i -e "s/@WIN_FILE@/$win_file/g" -e "s/@WIN_LABEL@/$win_label/g" -e "s/@WIN_SIZE@/$win_size/g" "$site/index.html"
 if grep -q '@WIN_' "$site/index.html"; then die "index.html has a placeholder left"; fi
 if [[ -z $(ls -A "$deb_root/pool/legacy") ]]; then
   echo "Note: no $LEGACY on the site yet; add it with --legacy <dir>"
