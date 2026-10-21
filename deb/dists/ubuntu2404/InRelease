@@ -1,0 +1,40 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Architectures: amd64
+Codename: ubuntu2404
+Components: main
+Date: Wed, 21 Oct 2026 06:13:15 +0000
+Description: Daevalog DPS Meter
+Label: Daevalog
+Origin: Daevalog
+Suite: ubuntu2404
+MD5Sum:
+ f2c166e0198b1a411a91411eaa7356f8             3660 main/binary-amd64/Packages
+ 473c0d58ac5884ad5e5c85c6766aad2b             1300 main/binary-amd64/Packages.gz
+SHA1:
+ 4a5f43c6f734711d65369fe6debee7d242ce177a             3660 main/binary-amd64/Packages
+ b8ec66aeec1df37a0287749d45ab555388afd4cb             1300 main/binary-amd64/Packages.gz
+SHA256:
+ c5a33a77877417546bbe9ea4d7f0f50fa4e2825f7e1707ae589ce29b746236d0             3660 main/binary-amd64/Packages
+ d16efee8eb4165a84b0210c2e250e16e06675e4317ddb1fa3770bde7abeeb3c3             1300 main/binary-amd64/Packages.gz
+SHA512:
+ bb1c0c04f1b8fe624344a7445148051d368572d16181896f674689af2149e2cda635c7b87f6c8cf7c4ac247e839d24f88f574e80493e15c4038e67838bcb0894             3660 main/binary-amd64/Packages
+ 134a773e9d25d8ef7a4d080c393370d2c594b1f3287b234d7dab3847be58b4a21880a9fdeb02b67ee09a6218c7187d001f3d9a01ee6a603cce107bb4e13e9dcf             1300 main/binary-amd64/Packages.gz
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEM/Hp91niiH0mNyw1UCQp9sCFRhwFAmrYV/wACgkQUCQp9sCF
+RhwwlxAAynEmPG1QxhZ71mfLzUxRaaKKIByM06yquv4ge3Zmhh5yI/sbSZzB5Kta
+ELRKC8qAeojHaD2T+LqCcMVCmXwot2n7ehsaAG+hsaY29CDNOudWRru+lzmrauu6
+C4jyKD2x+1rcHN1IkdiDUmVIuOStKB9dohAs4a5WU1dLUL1vocAR2wUog90albjT
+5K8jWXG2KrQ391a+TUKHjuKyzh3MrW37RmsjnwBEOZDOvxK6fRHUofwdMpDl4q57
+pl5/4AFUui47p/ZW0mJYS9469yd6djcGhRtGKr0KhECwbBmUAWmhWEVsQLrYmLPA
+dhUeFx2p7XXjfgEdRoZSp1Q/eLnjNafM5DNjS/7SS50BXwySO/JKwDdWubQfPPeH
+zkpPkC9eGQoxAgmSKEZG3Uk7C/7lsFzpneiraPx2z0J/sFuMODNqBSNjySydeMw4
+qQPPNrKnk4ZWLxw2EHr7WZ4d3NwWjARSBuoxzVJskQrmzDX/m59iPrxxdiRA2EAt
+x/ukMwqL1EtPo6hU/0XBtXYoFVhASnThmCRnk0G6ZuV/B9b+J5MhpATHnXlAE2Gp
+cjL1mfQ00gf92BXtY11EDDq57zwfUmUFJFeLnBJIrNPzo0tpq92IQ2q336apnqos
++o8jeNAGoVO9uPofLIajbO953eocP9RbXQ7itlgc+WWqeEmYJug=
+=M4gg
+-----END PGP SIGNATURE-----

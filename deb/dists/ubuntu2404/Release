@@ -1,0 +1,20 @@
+Architectures: amd64
+Codename: ubuntu2404
+Components: main
+Date: Wed, 21 Oct 2026 06:13:15 +0000
+Description: Daevalog DPS Meter
+Label: Daevalog
+Origin: Daevalog
+Suite: ubuntu2404
+MD5Sum:
+ f2c166e0198b1a411a91411eaa7356f8             3660 main/binary-amd64/Packages
+ 473c0d58ac5884ad5e5c85c6766aad2b             1300 main/binary-amd64/Packages.gz
+SHA1:
+ 4a5f43c6f734711d65369fe6debee7d242ce177a             3660 main/binary-amd64/Packages
+ b8ec66aeec1df37a0287749d45ab555388afd4cb             1300 main/binary-amd64/Packages.gz
+SHA256:
+ c5a33a77877417546bbe9ea4d7f0f50fa4e2825f7e1707ae589ce29b746236d0             3660 main/binary-amd64/Packages
+ d16efee8eb4165a84b0210c2e250e16e06675e4317ddb1fa3770bde7abeeb3c3             1300 main/binary-amd64/Packages.gz
+SHA512:
+ bb1c0c04f1b8fe624344a7445148051d368572d16181896f674689af2149e2cda635c7b87f6c8cf7c4ac247e839d24f88f574e80493e15c4038e67838bcb0894             3660 main/binary-amd64/Packages
+ 134a773e9d25d8ef7a4d080c393370d2c594b1f3287b234d7dab3847be58b4a21880a9fdeb02b67ee09a6218c7187d001f3d9a01ee6a603cce107bb4e13e9dcf             1300 main/binary-amd64/Packages.gz

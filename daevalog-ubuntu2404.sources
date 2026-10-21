@@ -1,0 +1,5 @@
+Types: deb
+URIs: https://packages.seralth.com/deb/
+Suites: ubuntu2404
+Components: main
+Signed-By: /etc/apt/keyrings/daevalog.asc

@@ -1,0 +1,62 @@
+Package: daevalog-dps-meter
+Architecture: amd64
+Version: 2.0.0+r1
+Priority: optional
+Section: games
+Maintainer: Seralth <packages@seralth.com>
+Installed-Size: 37608
+Depends: libc6 (>= 2.39), libgcc-s1 (>= 4.2), libqt6core6t64 (>= 6.4.0), libqt6gui6t64 (>= 6.4.0), libqt6network6t64 (>= 6.1.2), libqt6qml6 (>= 6.4.0), libqt6quick6 (>= 6.2.0), libqt6widgets6t64 (>= 6.1.2), libstdc++6 (>= 13.1), libpcap0.8t64 | libpcap0.8, libcap2-bin, qml6-module-qtquick, qml6-module-qtquick-layouts, qml6-module-qtqml-workerscript, qml6-module-qt-labs-platform, qt6-svg-plugins | libqt6svg6 (<< 6.7.2-5~), qt6-wayland
+Suggests: daevalog-dps-meter-legacy
+Conflicts: daevalog-qml, daevalog-qml-dev, a2-tools-dps-meter
+Replaces: daevalog-qml, daevalog-qml-dev, a2-tools-dps-meter
+Filename: pool/ubuntu2404/daevalog-dps-meter_2.0.0+r1_amd64.deb
+Size: 8313324
+MD5sum: 1de02e7b5f0bc812f81bb704de32bdef
+SHA1: 006768ae47331ef233c59c6001393c6202aba1a3
+SHA256: 5d3b3d3ccfe290de76c218691d7c5a635c9c12e76f566ed50449560730f4ecb1
+SHA512: 349003fe210ff5b41faaa9798f5a61d520b1d09387c5f39d2fcdd08b55f38f13646718d2f3a93c9ebefea359d35a690e6dc448f46c19b5e39ffa5d0faeaa7b4f
+Homepage: https://github.com/Seralth/Daevalog
+Description: Daevalog DPS Meter: AION 2 real-time DPS overlay
+ Real-time DPS overlay for AION 2, running natively on Linux while the game
+ runs under Proton. The 1.x meter is the package daevalog-dps-meter-legacy.
+
+Package: daevalog-dps-meter
+Architecture: amd64
+Version: 2.0.0+r2
+Priority: optional
+Section: games
+Maintainer: Seralth <packages@seralth.com>
+Installed-Size: 38132
+Depends: libc6 (>= 2.39), libgcc-s1 (>= 4.2), libqt6core6t64 (>= 6.4.0), libqt6gui6t64 (>= 6.4.0), libqt6network6t64 (>= 6.1.2), libqt6qml6 (>= 6.4.0), libqt6quick6 (>= 6.2.0), libqt6widgets6t64 (>= 6.1.2), libstdc++6 (>= 13.1), libqt6qml6 (>= 6.4), libpcap0.8t64 | libpcap0.8, libcap2-bin, qml6-module-qtquick, qml6-module-qtquick-layouts, qml6-module-qtqml-workerscript, qml6-module-qt-labs-platform, qt6-svg-plugins | libqt6svg6 (<< 6.7.2-5~), qt6-wayland
+Suggests: daevalog-dps-meter-legacy
+Conflicts: daevalog-qml, daevalog-qml-dev, a2-tools-dps-meter
+Replaces: daevalog-qml, daevalog-qml-dev, a2-tools-dps-meter
+Filename: pool/ubuntu2404/daevalog-dps-meter_2.0.0+r2_amd64.deb
+Size: 8458150
+MD5sum: e26e6cf03f3a0def88c59ebcfe2197f3
+SHA1: d6f1f3137f4e7d3f0dff11aa53a92ba2dbaed429
+SHA256: 60704a626a89bfb276a1b5c69e4bbf8f80b6532771e90cd24e5c86b5c303f355
+SHA512: 24e7e7a6931f919cdf0197a9d5f5b7a5838ea6c3fd0a40c021c9d4f91900b9065159c9dbde0d216bdc5176aea129a33412d222c028e8499d09cc55a3506265e3
+Homepage: https://github.com/Seralth/Daevalog
+Description: Daevalog DPS Meter: AION 2 real-time DPS overlay
+ Real-time DPS overlay for AION 2, running natively on Linux while the game
+ runs under Proton. The 1.x meter is the package daevalog-dps-meter-legacy.
+
+Package: daevalog-dps-meter-legacy
+Architecture: amd64
+Version: 1.1.0+r607
+Priority: optional
+Maintainer: Seralth <packages@seralth.com>
+Installed-Size: 64332
+Depends: libpcap0.8t64 | libpcap0.8, libcap2-bin, libgtk-layer-shell0, libayatana-appindicator3-1, libwebkit2gtk-4.1-0, libgtk-3-0
+Conflicts: a2-tools-dps-meter, daevalog-dps-meter (<< 2)
+Replaces: daevalog-dps-meter (<< 2)
+Filename: pool/legacy/daevalog-dps-meter-legacy_1.1.0+r607_amd64.deb
+Size: 25973096
+MD5sum: 9c6d698b4e6f9e4e06387fb2395305ea
+SHA1: 94d8cc4d8257c482645f8055140729ef81f30a09
+SHA256: da5281db176190a624cd3d0ba620cfa53359998c77d24098602769d44c485a68
+SHA512: 1717cb6e08b471ca0f6e8512d6c02a9b060fc30f154d0db4d8881a3ef1a69a73cb37c8a36d7fe6aa1de84c31789a618e5113aba9497d7c29f9d6e791602f686e
+Description: Daevalog DPS Meter 1.x - AION 2 real-time DPS overlay
+ (none)
+

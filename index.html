@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daevalog DPS Meter</title>
+<meta name="description" content="A party damage meter for AION 2, made for Linux. Signed packages for Arch, Debian, LMDE, Linux Mint, Pop!_OS, Fedora, Bazzite and openSUSE.">
+<meta name="theme-color" content="#090d18">
+<link rel="icon" type="image/png" href="icon.png">
+<style>
+  :root {
+    --bg: #090d18;
+    --card: rgba(255, 255, 255, 0.035);
+    --card-hover: rgba(255, 255, 255, 0.06);
+    --line: rgba(255, 255, 255, 0.07);
+    --edge: rgba(255, 255, 255, 0.14);
+    --text: rgba(255, 255, 255, 0.95);
+    --label: rgba(255, 255, 255, 0.6);
+    --note: #707c91;
+    --accent: #5fcaff;
+    --on-accent: #090d18;
+    --ok: #7bd88f;
+    --radius: 6px;
+    --mono: ui-monospace, "JetBrains Mono", "Cascadia Mono", "DejaVu Sans Mono", monospace;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.6 "Noto Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+  /* Top bar */
+  .top { border-bottom: 1px solid var(--line); }
+  .top .wrap { display: flex; align-items: center; gap: 24px; height: 60px; }
+  .brand { display: flex; align-items: center; gap: 10px; color: var(--text); font-weight: 600; font-size: 1.05rem; }
+  .brand:hover { text-decoration: none; }
+  .brand img { width: 28px; height: 28px; }
+  .top nav { margin-left: auto; display: flex; gap: 22px; font-size: 0.95rem; }
+  .top nav a { color: var(--label); }
+  .top nav a:hover { color: var(--text); text-decoration: none; }
+
+  /* Intro */
+  .intro { display: grid; grid-template-columns: 1fr 380px; gap: 56px; align-items: center; padding: 64px 0 56px; }
+  h1 { font-size: 2.6rem; line-height: 1.15; margin: 0 0 16px; font-weight: 700; letter-spacing: -0.01em; }
+  .lead { font-size: 1.15rem; color: var(--label); margin: 0 0 24px; max-width: 34em; }
+  .facts { list-style: none; padding: 0; margin: 0 0 32px; display: grid; gap: 8px; }
+  .facts li { color: var(--label); padding-left: 22px; position: relative; }
+  .facts li::before { content: ""; position: absolute; left: 4px; top: 0.7em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  .facts strong { color: var(--text); font-weight: 600; }
+  .buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+  .button {
+    display: inline-block; padding: 10px 20px; border-radius: var(--radius);
+    font-weight: 600; font-size: 0.95rem; border: 1px solid var(--edge); color: var(--text);
+  }
+  .button:hover { text-decoration: none; background: var(--card-hover); }
+  .button.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .button.primary:hover { background: #8adbff; }
+  .shot { margin: 0; }
+  .shot img { display: block; width: 100%; height: auto; border-radius: var(--radius); border: 1px solid var(--edge); }
+  .shot figcaption { color: var(--note); font-size: 0.85rem; margin-top: 8px; }
+
+  /* Sections */
+  section { padding: 48px 0; border-top: 1px solid var(--line); }
+  h2 { font-size: 1.6rem; margin: 0 0 8px; font-weight: 700; }
+  h3 { font-size: 1.05rem; margin: 0 0 8px; font-weight: 600; }
+  .sub { color: var(--label); margin: 0 0 28px; max-width: 46em; }
+  p { margin: 0 0 12px; }
+  .muted { color: var(--label); }
+  .note { color: var(--note); font-size: 0.92rem; }
+  code { font-family: var(--mono); font-size: 0.88em; background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px; }
+
+  /* System picker: the radio buttons sit beside the panels, the labels in the picker row. */
+  .sys-radio { position: absolute; opacity: 0; pointer-events: none; }
+  .picker { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .picker label {
+    padding: 8px 16px; border-radius: var(--radius); border: 1px solid var(--line);
+    background: var(--card); color: var(--label); cursor: pointer; font-size: 0.95rem; user-select: none;
+  }
+  .picker label:hover { color: var(--text); background: var(--card-hover); }
+  #sys-arch:checked ~ .picker [for=sys-arch],
+  #sys-debian:checked ~ .picker [for=sys-debian],
+  #sys-mint:checked ~ .picker [for=sys-mint],
+  #sys-fedora:checked ~ .picker [for=sys-fedora],
+  #sys-bazzite:checked ~ .picker [for=sys-bazzite],
+  #sys-suse:checked ~ .picker [for=sys-suse],
+  #sys-windows:checked ~ .picker [for=sys-windows],
+  #sys-source:checked ~ .picker [for=sys-source] {
+    color: var(--on-accent); background: var(--accent); border-color: var(--accent); font-weight: 600;
+  }
+  .sys-radio:focus-visible ~ .picker { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: var(--radius); }
+  .panel { display: none; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+  #sys-arch:checked ~ .panels .p-arch,
+  #sys-debian:checked ~ .panels .p-debian,
+  #sys-mint:checked ~ .panels .p-mint,
+  #sys-fedora:checked ~ .panels .p-fedora,
+  #sys-bazzite:checked ~ .panels .p-bazzite,
+  #sys-suse:checked ~ .panels .p-suse,
+  #sys-windows:checked ~ .panels .p-windows,
+  #sys-source:checked ~ .panels .p-source { display: block; }
+  .deps { margin: 0 0 8px; padding-left: 20px; color: var(--label); }
+  .deps li { margin-bottom: 2px; }
+  .deps strong { color: var(--text); font-weight: 600; }
+  .download { display: inline-flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+  .download .size { color: var(--note); font-size: 0.9rem; }
+  .panel h3 { margin-bottom: 2px; }
+  .panel .for { color: var(--note); font-size: 0.92rem; margin-bottom: 20px; }
+  .step { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 0 12px; margin-bottom: 18px; }
+  .step:last-child { margin-bottom: 0; }
+  .num {
+    width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--edge);
+    color: var(--label); font-size: 0.8rem; display: flex; align-items: center; justify-content: center; margin-top: 2px;
+  }
+  .step p { margin: 0 0 8px; }
+  .cmd { position: relative; }
+  .cmd pre {
+    margin: 0; padding: 14px 84px 14px 16px; background: rgba(0, 0, 0, 0.35); border: 1px solid var(--line);
+    border-radius: var(--radius); font-family: var(--mono); font-size: 0.88rem; line-height: 1.6;
+    /* Long commands wrap beside the copy button instead of scrolling under it. */
+    white-space: pre-wrap; overflow-wrap: anywhere;
+  }
+  .copy {
+    position: absolute; top: 9px; right: 9px; padding: 3px 12px; border-radius: 4px; border: 1px solid var(--edge);
+    background: var(--bg); color: var(--label); font-family: inherit; font-size: 0.8rem; font-weight: 600; cursor: pointer;
+  }
+  .copy:hover { color: var(--text); }
+  .copy.done { color: var(--ok); border-color: var(--ok); }
+
+  /* Key */
+  .key { display: grid; grid-template-columns: max-content 1fr; gap: 6px 20px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 24px; max-width: 760px; margin: 0; }
+  .key dt { color: var(--label); }
+  .key dd { margin: 0; }
+  .fpr { font-family: var(--mono); font-size: 0.92rem; word-spacing: 0.25em; }
+
+  /* Small cards */
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card .cmd { margin: 4px 0 12px; }
+  .card .cmd pre { font-size: 0.8rem; padding-right: 76px; }
+
+  footer { border-top: 1px solid var(--line); padding: 32px 0 48px; color: var(--note); font-size: 0.9rem; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 32px; justify-content: space-between; }
+  footer p { margin: 0; }
+  footer a { color: var(--label); }
+
+  @media (max-width: 860px) {
+    .intro { grid-template-columns: minmax(0, 1fr); gap: 36px; padding: 40px 0; }
+    .shot { max-width: 420px; }
+    .grid { grid-template-columns: minmax(0, 1fr); }
+    h1 { font-size: 2.1rem; }
+  }
+  @media (max-width: 560px) {
+    .wrap { padding: 0 16px; }
+    .top nav { gap: 14px; font-size: 0.9rem; }
+    .top nav .wide { display: none; }
+    .panel { padding: 16px; }
+    .step { grid-template-columns: minmax(0, 1fr); }
+    .num { display: none; }
+    .key { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+    .key dd { margin-bottom: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="icon.png" alt="" width="28" height="28">Daevalog</a>
+    <nav>
+      <a href="#install">Install</a>
+      <a class="wide" href="#key">Signing key</a>
+      <a class="wide" href="#help">Help</a>
+      <a href="https://github.com/Seralth/Daevalog">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+<div class="intro">
+  <div>
+    <h1>Daevalog DPS Meter</h1>
+    <p class="lead">A party damage meter for AION&nbsp;2, made for Linux. It reads the game's network traffic and never touches the game itself.</p>
+    <ul class="facts">
+      <li><strong>Damage, healing and damage taken</strong> for your whole party, with the boss's enrage timer and a time to kill.</li>
+      <li><strong>Signed packages</strong> for Arch, Debian, LMDE, Linux Mint, Pop!_OS, Fedora, Bazzite and openSUSE. The meter updates with the rest of your system.</li>
+      <li><strong>Open source</strong> under the AGPL-3.0. Also runs on Windows.</li>
+    </ul>
+    <div class="buttons">
+      <a class="button primary" href="#install">Install</a>
+      <a class="button" href="https://github.com/Seralth/Daevalog">Source on GitHub</a>
+    </div>
+  </div>
+  <figure class="shot">
+    <img src="screenshot-meter.png" alt="The meter during a boss fight: fight time, boss name, enrage timer and time to kill above the party's damage rows.">
+    <figcaption>A boss fight in progress. Other players' names are hidden.</figcaption>
+  </figure>
+</div>
+
+<section id="install">
+  <h2>Install</h2>
+  <p class="sub">Pick your system. Each system has its own repository with a build made for it, and the meter updates with your normal system updates.</p>
+
+  <input class="sys-radio" type="radio" name="sys" id="sys-arch" checked>
+  <input class="sys-radio" type="radio" name="sys" id="sys-debian">
+  <input class="sys-radio" type="radio" name="sys" id="sys-mint">
+  <input class="sys-radio" type="radio" name="sys" id="sys-fedora">
+  <input class="sys-radio" type="radio" name="sys" id="sys-bazzite">
+  <input class="sys-radio" type="radio" name="sys" id="sys-suse">
+  <input class="sys-radio" type="radio" name="sys" id="sys-windows">
+  <input class="sys-radio" type="radio" name="sys" id="sys-source">
+
+  <div class="picker">
+    <label for="sys-arch">Arch</label>
+    <label for="sys-debian">Debian, LMDE</label>
+    <label for="sys-mint">Linux Mint, Pop!_OS</label>
+    <label for="sys-fedora">Fedora</label>
+    <label for="sys-bazzite">Bazzite</label>
+    <label for="sys-suse">openSUSE</label>
+    <label for="sys-windows">Windows</label>
+    <label for="sys-source">From source</label>
+  </div>
+
+  <div class="panels">
+
+    <div class="panel p-arch">
+      <h3>Arch Linux and Arch-based</h3>
+      <p class="for">CachyOS, EndeavourOS, Manjaro and other Arch-based systems.</p>
+      <div class="step"><span class="num">1</span><div>
+        <p>Add the signing key and trust it:</p>
+        <div class="cmd"><pre>curl -fsSLO https://packages.seralth.com/daevalog.asc
+sudo pacman-key --add daevalog.asc
+sudo pacman-key --lsign-key 33F1E9F759E2887D26372C35502429F6C085461C</pre></div>
+      </div></div>
+      <div class="step"><span class="num">2</span><div>
+        <p>Add these lines to the end of <code>/etc/pacman.conf</code>:</p>
+        <div class="cmd"><pre>[daevalog]
+Server = https://packages.seralth.com/arch/$arch</pre></div>
+      </div></div>
+      <div class="step"><span class="num">3</span><div>
+        <p>Install:</p>
+        <div class="cmd"><pre>sudo pacman -Syu daevalog-dps-meter</pre></div>
+      </div></div>
+    </div>
+
+    <div class="panel p-debian">
+      <h3>Debian 13 and LMDE 7</h3>
+      <p class="for">The .deb built on Debian 13.</p>
+      <div class="step"><span class="num">1</span><div>
+        <p>Add the key and the repository, then install:</p>
+        <div class="cmd"><pre>sudo curl -fsSLo /etc/apt/keyrings/daevalog.asc https://packages.seralth.com/daevalog.asc
+sudo curl -fsSLo /etc/apt/sources.list.d/daevalog.sources https://packages.seralth.com/daevalog-debian13.sources
+sudo apt update
+sudo apt install daevalog-dps-meter</pre></div>
+      </div></div>
+      <p class="note">No <code>curl</code>? Install it first: <code>sudo apt install curl</code></p>
+    </div>
+
+    <div class="panel p-mint">
+      <h3>Linux Mint 22 and Pop!_OS 24.04</h3>
+      <p class="for">The .deb built on Ubuntu 24.04, which both are based on.</p>
+      <div class="step"><span class="num">1</span><div>
+        <p>Add the key and the repository, then install:</p>
+        <div class="cmd"><pre>sudo curl -fsSLo /etc/apt/keyrings/daevalog.asc https://packages.seralth.com/daevalog.asc
+sudo curl -fsSLo /etc/apt/sources.list.d/daevalog.sources https://packages.seralth.com/daevalog-ubuntu2404.sources
+sudo apt update
+sudo apt install daevalog-dps-meter</pre></div>
+      </div></div>
+      <p class="note">No <code>curl</code>? Install it first: <code>sudo apt install curl</code></p>
+    </div>
+
+    <div class="panel p-fedora">
+      <h3>Fedora</h3>
+      <p class="for">Fedora 44.</p>
+      <div class="step"><span class="num">1</span><div>
+        <p>Add the repository and install:</p>
+        <div class="cmd"><pre>sudo dnf config-manager addrepo --from-repofile=https://packages.seralth.com/daevalog-fedora.repo
+sudo dnf install daevalog-dps-meter</pre></div>
+      </div></div>
+      <p class="note">dnf asks once to import the key. Check that its fingerprint matches the <a href="#key">signing key</a> below.</p>
+    </div>
+
+    <div class="panel p-bazzite">
+      <h3>Bazzite and other image-based Fedoras</h3>
+      <p class="for">Uses the Fedora build, installed into the system image.</p>
+      <div class="step"><span class="num">1</span><div>
+        <p>Add the repository, install, and restart to start the new image:</p>
+        <div class="cmd"><pre>sudo curl -fsSLo /etc/yum.repos.d/daevalog.repo https://packages.seralth.com/daevalog-fedora.repo
+rpm-ostree install daevalog-dps-meter
+systemctl reboot</pre></div>
+      </div></div>
+    </div>
+
+    <div class="panel p-suse">
+      <h3>openSUSE Tumbleweed</h3>
+      <p class="for">The .rpm built on Tumbleweed.</p>
+      <div class="step"><span class="num">1</span><div>
+        <p>Import the key, add the repository and install:</p>
+        <div class="cmd"><pre>sudo rpm --import https://packages.seralth.com/daevalog.asc
+sudo zypper addrepo https://packages.seralth.com/daevalog-tumbleweed.repo
+sudo zypper install daevalog-dps-meter</pre></div>
+      </div></div>
+    </div>
+
+    <div class="panel p-windows">
+      <h3>Windows</h3>
+      <p class="for">Windows 10 and 11, 64-bit.</p>
+      <div class="step"><span class="num">1</span><div>
+        <p>Install <a href="https://npcap.com/#download">Npcap</a> with its default options; the free edition works. The meter needs it to read the game's network traffic.</p>
+      </div></div>
+      <div class="step"><span class="num">2</span><div>
+        <p>Download the installer and run it:</p>
+        <div class="download">
+          <a class="button primary" href="windows/daevalog-dps-meter-2.0.0-r2-setup.exe">Download Daevalog 2.0.0</a>
+          <span class="size">64-bit installer, 33 MB</span>
+        </div>
+        <p class="note">The installer is not code-signed, so Windows shows "Windows protected your PC" the first time. Click <b>More info</b>, then <b>Run anyway</b>.</p>
+        <p class="note">The same installer is on the <a href="https://github.com/Seralth/Daevalog/releases">GitHub releases page</a>, with older versions.</p>
+      </div></div>
+      <div class="step"><span class="num">3</span><div>
+        <p>To check the download (optional), compare its checksum in PowerShell with the one in <a href="windows/SHA256SUMS">SHA256SUMS</a>:</p>
+        <div class="cmd"><pre>Get-FileHash .\daevalog-dps-meter-2.0.0-r2-setup.exe</pre></div>
+        <p class="note">A signature made with the <a href="#key">signing key</a> is also there, for <code>gpg --verify</code>: <a href="windows/daevalog-dps-meter-2.0.0-r2-setup.exe.asc">daevalog-dps-meter-2.0.0-r2-setup.exe.asc</a>.</p>
+      </div></div>
+      <p class="note">The Windows build is new: it is tested on recorded fights, not yet in a live game.</p>
+    </div>
+
+    <div class="panel p-source">
+      <h3>Build from source</h3>
+      <p class="for">For Linux systems without a package. 64-bit (x86_64) only.</p>
+      <div class="step"><span class="num">1</span><div>
+        <p>Install what the build needs:</p>
+        <ul class="deps">
+          <li><strong>Rust 1.89 or newer</strong> (from <a href="https://rustup.rs">rustup.rs</a>), a <strong>C++ compiler</strong> and <strong>git</strong></li>
+          <li><strong>Qt 6</strong> with its development files: Qt Base and Qt Declarative</li>
+          <li>At run time: <strong>libpcap</strong>, <strong>Qt SVG</strong>, the QML modules QtQuick, QtQuick.Layouts and Qt.labs.platform, <strong>Qt's Wayland plugin</strong>, and <strong>setcap</strong> (libcap)</li>
+        </ul>
+      </div></div>
+      <div class="step"><span class="num">2</span><div>
+        <p>Download and build:</p>
+        <div class="cmd"><pre>git clone https://github.com/Seralth/Daevalog.git
+cd Daevalog/src-qml
+cargo build --release --locked
+cargo build --release --locked -p daevalog-capture</pre></div>
+      </div></div>
+      <div class="step"><span class="num">3</span><div>
+        <p>Give the capture helper its permission, then start the meter. Redo the <code>setcap</code> line after every rebuild:</p>
+        <div class="cmd"><pre>sudo setcap cap_net_raw=ep target/release/daevalog-capture
+target/release/daevalog-qml</pre></div>
+      </div></div>
+      <p class="note">The <a href="https://github.com/Seralth/Daevalog/blob/HEAD/docs/linux.md#building-from-source">full guide</a> has the package names for each distribution, updating, and what to do when <code>setcap</code> fails.</p>
+    </div>
+
+  </div>
+</section>
+
+<section id="key">
+  <h2>Signing key</h2>
+  <p class="sub">Every package and every repository index here is signed with this key. Your package manager checks the signature on each update.</p>
+  <dl class="key">
+    <dt>Key</dt><dd>Seralth &lt;packages@seralth.com&gt;</dd>
+    <dt>Fingerprint</dt><dd class="fpr">33F1 E9F7 59E2 887D 2637 2C35 5024 29F6 C085 461C</dd>
+    <dt>Download</dt><dd><a href="daevalog.asc">daevalog.asc</a></dd>
+  </dl>
+</section>
+
+<section id="help">
+  <h2>Help</h2>
+  <p class="sub">The 1.x meter, and systems without a package.</p>
+  <div class="grid">
+    <div class="card">
+      <h3>The 1.x meter</h3>
+      <p class="muted">The 1.x meter stays available as <code>daevalog-dps-meter-legacy</code>. It installs beside 2.0, keeps its own settings, and shows in your menu as Daevalog DPS Meter 1.x (legacy).</p>
+      <p class="muted">1.x gets no more updates, apart from fixes for security problems.</p>
+      <p class="muted">Its source is inside the package, at <code>/usr/share/daevalog-dps-meter-legacy/source.tar.gz</code>.</p>
+    </div>
+    <div class="card">
+      <h3>Other systems</h3>
+      <p class="muted">Steam Deck: the Arch package in a distrobox, as the <a href="https://github.com/Seralth/Daevalog/blob/HEAD/docs/linux.md#steam-deck-steamos">Linux guide</a> describes. Other distributions: <a href="#source">build from source</a>.</p>
+      <p class="muted">Flatpak and AppImage are not supported: neither can give the capture helper the permission it needs to read network traffic.</p>
+    </div>
+  </div>
+</section>
+
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Daevalog is its own meter. It started as a fork of A2Tools DPS Meter. Not affiliated with NCSOFT.</p>
+    <p><a href="https://github.com/Seralth/Daevalog">Source</a> · AGPL-3.0 · <a href="mailto:packages@seralth.com">packages@seralth.com</a></p>
+  </div>
+</footer>
+
+<script>
+  // A copy button on every command block.
+  for (const pre of document.querySelectorAll('.cmd pre')) {
+    const button = document.createElement('button');
+    button.className = 'copy';
+    button.type = 'button';
+    button.textContent = 'Copy';
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(pre.textContent);
+        button.textContent = 'Copied';
+        button.classList.add('done');
+      } catch (e) {
+        button.textContent = 'Select and copy';
+      }
+      setTimeout(() => { button.textContent = 'Copy'; button.classList.remove('done'); }, 2000);
+    });
+    pre.parentElement.appendChild(button);
+  }
+  // Open the tab for this system, or the one in the address (#debian, #fedora, ...).
+  const pick = id => { const r = document.getElementById('sys-' + id); if (r) r.checked = true; };
+  const tags = { arch: 'arch', debian: 'debian', mint: 'mint', fedora: 'fedora', bazzite: 'bazzite', opensuse: 'suse', windows: 'windows', source: 'source' };
+  const hash = location.hash.slice(1);
+  if (tags[hash]) {
+    pick(tags[hash]);
+  } else if (/Windows/.test(navigator.userAgent)) {
+    pick('windows');
+  }
+</script>
+</body>
+</html>

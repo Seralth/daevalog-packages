@@ -1,0 +1,5 @@
+Types: deb
+URIs: https://packages.seralth.com/deb/
+Suites: debian13
+Components: main
+Signed-By: /etc/apt/keyrings/daevalog.asc

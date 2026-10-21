@@ -1,0 +1,40 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Architectures: amd64
+Codename: debian13
+Components: main
+Date: Wed, 21 Oct 2026 06:13:15 +0000
+Description: Daevalog DPS Meter
+Label: Daevalog
+Origin: Daevalog
+Suite: debian13
+MD5Sum:
+ d36167c9ed195c4f1eacfce3b37783c9             3752 main/binary-amd64/Packages
+ 0cb8acab6118d6085901c371d56bf98e             1321 main/binary-amd64/Packages.gz
+SHA1:
+ becfdb8b61bb8a8a82d374bf7febfb14c01449ed             3752 main/binary-amd64/Packages
+ add1e3cd05608ce046f740603ede5b2b492c2b36             1321 main/binary-amd64/Packages.gz
+SHA256:
+ a146261028e8adcd34104a3abdb187718950aaa186b548e9608c305bbcea0638             3752 main/binary-amd64/Packages
+ 89fccb0fd886f633bedc82a2f60acf46b36f3672178db653b05af99069f05fa7             1321 main/binary-amd64/Packages.gz
+SHA512:
+ 34c76b09a49aae3c0ff579c91b375ca3e4596bc7d73241c82d806afb8dd9dc9908e161acc642fe12c7fd746194f6b03a60929c3611b8a63ef84ebeee8818830e             3752 main/binary-amd64/Packages
+ 11ff4cef829161acfea4b41f374897bfca659c8b48835c5a2e14f7bed177497a2bc46e616f0bc2fbcccf72b22e84e13bcb2854407a035bb81c8e6ca87b3db0c9             1321 main/binary-amd64/Packages.gz
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEM/Hp91niiH0mNyw1UCQp9sCFRhwFAmrYV/wACgkQUCQp9sCF
+Rhw6eBAAzIFTMlCAb4KEKzJcyCGE7DWBuXPe6vkUpkNFxupPW/pWqAH8d7Y+JGJe
+TFVESgXG3Bllvrrd+hikH1BEL8UQdz5Ca6ou0XqRTXGRAavfTCQvvIhYIVkPX2+o
+RjKGEVU1jabWZYJF0G2f/+u+JdRlvxUrYvD6Ml6U6qMVDjpKxWq/bMo2uI2Qx4c9
+AgPa/QRYBrZYibSMEGMM+RHQhhX1BFhX68exv0gZ9kV8dKFq0ho/2A+vPBa9SM/6
+lpdoL4pi/PP/HsITOMCbCxVzehWcSn7787TZWJ0zJqmQvI7LF5HvpzrfLzvTQxtx
+XOM6cGyrRBT/OtfJk0UXfS3YMHr0TQK9AWkviNI7WuOUvuKqURraJbcu8pJQrF3D
+8c69r4iBWCD5zXqAQQD6U3KvVv2jo4DpDqvI6JN8GlUa0BMlPIVD66MiGf5SZWKN
+4zT0o3ecum4APbKq2mecq9WRe8csfSdBlA0teP0Zu1vkBMgwIwr0g8eMenUhMlsL
+F9apfaahp0nKsYc/5G+TCFs0oVG7j+aqnIN6FAyUSHDpyyB8cJ6YjL1jHgtcSf3s
+MH3CYV6WX46mL/PsEfmjoP7TkKYL+dY6BVRaWsAlTu+2ObVKtfSFNpZJryzuubN3
+nDUuFvDq6/JPqpYV7m3AS4PeoiO1ZTds2AlIT3qvquN+gTUJ5Vs=
+=2jmD
+-----END PGP SIGNATURE-----
